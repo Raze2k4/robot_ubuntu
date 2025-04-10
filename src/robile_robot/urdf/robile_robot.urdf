@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<robot name="ugv_robot">
+
+    <!-- Than -->
+    <link name="base_link">
+        <visual>
+            <geometry>
+                <box size="0.5 0.3 0.2"/>
+            </geometry>
+            <material name="blue">
+                <color rgba="0 0 1 1"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.5 0.3 0.2"/>
+            </geometry>
+        </collision>
+        <inertial>
+             <mass value="5"/>
+             <inertia ixx="0.05417" ixy="0" ixz="0" iyy="0.12083" iyz="0.0" izz="0.14167"/>
+        </inertial>
+    </link>
+
+    <!-- Banh xe -->
+    <link name="wheel_tr_trc">
+        <visual>
+            <geometry>
+                <cylinder radius="0.05" length="0.02"/>
+            </geometry>
+           
+            <material name="black">
+                <color rgba="0 0 0 1"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.05" length="0.02"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="10"/>
+            <inertia ixx="0.0013167" ixy="0.0" ixz="0.0" iyy="0.0013167" iyz="0.0" izz="00.0025"/>
+        </inertial>
+
+    </link>
+    
+    <link name="wheel_ph_trc">
+        <visual>
+            <geometry>
+                <cylinder radius="0.05" length="0.02"/>
+            </geometry>
+            <material name="black">
+                <color rgba="0 0 0 1"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.05" length="0.02"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="10"/>
+            <inertia ixx="0.0013167" ixy="0.0" ixz="0.0" iyy="0.0013167" iyz="0.0" izz="00.0025"/>
+        </inertial>
+
+    </link>
+
+    <link name="wheel_tr_s">
+        <visual>
+            <geometry>
+                <cylinder radius="0.05" length="0.02"/>
+            </geometry>
+            <material name="black">
+                <color rgba="0 0 0 1"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.05" length="0.02"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="10"/>
+            <inertia ixx="0.0013167" ixy="0.0" ixz="0.0" iyy="0.0013167" iyz="0.0" izz="00.0025"/>
+        </inertial>
+    </link>
+
+    <link name="wheel_ph_s">
+        <visual>
+            <geometry>
+                <cylinder radius="0.05" length="0.02"/>
+            </geometry>
+            <material name="black">
+                <color rgba="0 0 0 1"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.05" length="0.02"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="10"/>
+            <inertia ixx="0.0013167" ixy="0.0" ixz="0.0" iyy="0.0013167" iyz="0.0" izz="00.0025"/>
+        </inertial>
+    </link>
+
+    <!-- Khop noi banh xe -->
+    <joint name="joint_wheel_tr_trc" type="continuous">
+        <parent link="base_link"/>
+        <child link="wheel_tr_trc"/>
+        <origin xyz="-0.2 0.16 -0.1" rpy="1.57 0.0 0.0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+
+    <joint name="joint_wheel_ph_trc" type="continuous">
+        <parent link="base_link"/>
+        <child link="wheel_ph_trc"/>
+        <origin xyz="0.2 0.16 -0.1" rpy="1.57 0.0 0.0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+
+    <joint name="joint_wheel_tr_s" type="continuous">
+        <parent link="base_link"/>
+        <child link="wheel_tr_s"/>
+        <origin xyz="-0.2 -0.16 -0.1" rpy="1.57 0.0 0.0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+
+    <joint name="joint_wheel_ph_s" type="continuous">
+        <parent link="base_link"/>
+        <child link="wheel_ph_s"/>
+        <origin xyz="0.2 -0.16 -0.1" rpy="1.57 0.0 0.0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+
+</robot>

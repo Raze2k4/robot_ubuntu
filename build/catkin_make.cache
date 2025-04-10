@@ -1,0 +1,2 @@
+robile_robot
+-DCATKIN_DEVEL_PREFIX=/home/ngoos/catkin_urdf/devel -DCMAKE_INSTALL_PREFIX=/home/ngoos/catkin_urdf/install -G Unix Makefiles

@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/ngoos/catkin_urdf/devel/setup.sh
