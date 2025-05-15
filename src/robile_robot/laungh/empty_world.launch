@@ -1,19 +1,20 @@
 <launch>
-  <!-- Robot model -->
-  <param name="robot_description" textfile="$(find robile_robot)/urdf/robile_robot.urdf"/>
-	
-  <!-- Gazebo -->
-  <include file="$(find gazebo_ros)/launch/empty_world.launch"/>
 
-  <!-- Spawn model -->
-  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model"
-        args="-param robot_description -urdf -model robile_robot" />
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find robile_robot)/world/test3/model.sdf"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
 
-  <!-- Load diff_drive params -->
-  <rosparam file="$(find robile_robot)/config/diff_drive.yaml" command="load"/>
 
-  <!-- Controller -->
-  <node name="controller_spawner" pkg="controller_manager" type="spawner"
-        args="diff_drive_controller" output="screen"/>
+    <!-- Load mô hình URDF vào Gazebo -->
+    <param name="robot_description" command="$(find xacro)/xacro $(find robile_robot)/urdf/robile_robot.urdf" />
+
+    <!-- Spawn robot vào Gazebo -->
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" output="screen" args="-param robot_description -urdf -model mobile_robot" />
+
+
 </launch>
-

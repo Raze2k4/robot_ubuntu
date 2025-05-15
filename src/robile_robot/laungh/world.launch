@@ -11,8 +11,7 @@
 
 
     <!-- Load mô hình URDF vào Gazebo -->
-    <param name="robot_description" command="$(find xacro)/xacro $(find robile_robot)/urdf/robile_robot.urdf" />
-
+    <param name="robot_description" textfile="$(find robile_robot)/urdf/robile_robot.urdf"/>
     <!-- Spawn robot vào Gazebo -->
     <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" output="screen" args="-param robot_description -urdf -model mobile_robot" />
 
