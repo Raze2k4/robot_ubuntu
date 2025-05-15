@@ -7,8 +7,4 @@
 # new environment variables
 
 # modified environment variables
-export CMAKE_PREFIX_PATH="/home/ngoos/catkin_urdf/devel:$CMAKE_PREFIX_PATH"
-export LD_LIBRARY_PATH="/home/ngoos/catkin_urdf/devel/lib:$LD_LIBRARY_PATH"
 export PWD='/home/ngoos/catkin_urdf/build'
-export ROSLISP_PACKAGE_DIRECTORIES="/home/ngoos/catkin_urdf/devel/share/common-lisp:$ROSLISP_PACKAGE_DIRECTORIES"
-export ROS_PACKAGE_PATH="/home/ngoos/catkin_urdf/src:$ROS_PACKAGE_PATH"
