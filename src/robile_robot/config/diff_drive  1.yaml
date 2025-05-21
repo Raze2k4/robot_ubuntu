@@ -1,0 +1,31 @@
+diff_drive_controller:
+  type: "diff_drive_controller/DiffDriveController"
+  left_wheel: ["joint_wheel_ph_trc"]
+  right_wheel: ["joint_wheel_tr_trc"]
+  publish_rate: 50
+
+  wheel_separation: 0.1465      # khoảng cách giữa hai bánh xe
+  wheel_radius: 0.4         # bán kính bánh xe
+  cmd_vel_timeout: 1.0         # Increased to avoid stopping due to command delays
+
+  enable_odom_tf: true
+
+  # Tuning odometry
+  odometry:
+    frame_id: odom
+    child_frame_id: base_link
+    publish_rate: 50
+
+  # Velocity and acceleration limits
+  linear:
+    x:
+      has_velocity_limits: true
+      max_velocity: 1.0
+      has_acceleration_limits: true
+      max_acceleration: 1.5
+  angular:
+    z:
+      has_velocity_limits: true
+      max_velocity: 2.0
+      has_acceleration_limits: true
+      max_acceleration: 2.5

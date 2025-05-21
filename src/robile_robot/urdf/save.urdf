@@ -1,90 +1,259 @@
 <?xml version="1.0"?>
+<robot name="ugv_robot">
 
-<robot name="mobile_robot">
-    <link name="base_link">
+  <!-- Thân -->
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://robile_robot/models/body3.stl"/>
+      </geometry>
+      <material name="pink">
+        <color rgba="1 0.4 0.7 1"/>
+      </material>
+      <origin xyz="-0.3 0.5 0.1" rpy="1.57 0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://robile_robot/models/body3.stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="2"/>
+      <inertia ixx="0.4465" ixy="0" ixz="0" iyy="0.3468" iyz="0.0" izz="0.4026"/>
+    </inertial>
+  </link>
+
+  <!-- Bánh xe -->
+  <link name="wheel_ph_trc">
+    <visual>
+      <geometry>
+        <cylinder radius="0.2" length="0.2"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.2" length="0.2"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="0.013333" ixy="0.0" ixz="0.0" iyy="0.013333" iyz="0.0" izz="0.02"/>
+    </inertial>
+  </link>
+
+  <link name="wheel_tr_trc">
+    <visual>
+      <geometry>
+        <cylinder radius="0.2" length="0.2"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.2" length="0.2"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="0.013333" ixy="0.0" ixz="0.0" iyy="0.013333" iyz="0.0" izz="0.02"/>
+    </inertial>
+  </link>
+
+  <link name="wheel_tr_s">
+    <visual>
+      <geometry>
+        <cylinder radius="0.2" length="0.2"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.2" length="0.2"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="0.013333" ixy="0.0" ixz="0.0" iyy="0.013333" iyz="0.0" izz="0.02"/>
+    </inertial>
+  </link>
+
+  <link name="wheel_ph_s">
+    <visual>
+      <geometry>
+        <cylinder radius="0.2" length="0.2"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.2" length="0.2"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="0.013333" ixy="0.0" ixz="0.0" iyy="0.013333" iyz="0.0" izz="0.02"/>
+    </inertial>
+  </link>
+
+  <gazebo>
+    <plugin name="diff_drive" filename="libgazebo_ros_diff_drive.so">
+    <ros>
+  <namespace>/</namespace>
+</ros>
+        <!-- Joint Names -->
+        <leftJoint>joint_wheel_tr_trc</leftJoint>
+        <rightJoint>joint_wheel_ph_trc</rightJoint>
+        <!-- <leftJoint>joint_wheel_tr_s</leftJoint>
+        <rightJoint>joint_wheel_ph_s</rightJoint> -->
+
+        <!-- Wheel Properties -->
+        <wheelSeparation>0.25</wheelSeparation>
+        <wheelDiameter>0.4</wheelDiameter>
+
+        <!-- Control Topic -->
+
+        <commandTopic>/cmd_vel</commandTopic>
+
+        <!-- Odometry and Frames -->
+        <odometryTopic>/odom</odometryTopic>
+        <odometryFrame>odom</odometryFrame>
+        <odometrySource>world</odometrySource>
+        <robotBaseFrame>base_link</robotBaseFrame>
+
+        <!-- Publish Options -->
+        <publishOdomTF>true</publishOdomTF>
+        <publishWheelTF>true</publishWheelTF>
+        <publishTf>true</publishTf>
+        <publishWheelJointState>true</publishWheelJointState>
+        <!-- Wheel Dynamics -->
+        <wheelAcceleration>200.0</wheelAcceleration>
+        <wheelTorque>200.0</wheelTorque>
+        <updateRate>100</updateRate>
+
+        <rosDebugLevel>na</rosDebugLevel>
+        
+    </plugin>
+
+</gazebo>
+
+  <!-- Khớp nối bánh xe -->
+  <joint name="joint_wheel_tr_trc" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_tr_trc"/>
+    <origin xyz="-0.3 -0.865 0.2" rpy="1.57 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <joint name="joint_wheel_ph_trc" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_ph_trc"/>
+    <origin xyz="-0.3 0.6 0.2" rpy="1.57 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <joint name="joint_wheel_ph_s" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_ph_s"/>
+    <origin xyz="0.7 0.6 0.2" rpy="1.57 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <joint name="joint_wheel_tr_s" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_tr_s"/>
+    <origin xyz="0.7 -0.865 0.2" rpy="1.57 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <!-- <camera> -->
+
+<!-- Base Camera -->
+<link name="camera_link">
         <visual>
             <geometry>
-                 <mesh filename="package://robile_robot/models/base_link.stl" scale="0.002 0.002 0.002"/>
+                <mesh filename="package://robile_robot/models/eye.stl" scale="0.5 0.5 0.5"/>
             </geometry>
-            <!-- <material name="gray">
-                <color rgba="0.6 0.6 0.6 1.0"/>
-            </material> -->
-                      <origin xyz="-0.15 -0.18 0.0" rpy="1.57 0.0 1.57"/>
+            <origin xyz="-1.3 -0.6 -1.55" rpy="1.57 0 1.57"/>
         </visual>
-        <collision>
-            
-        </collision>
-    </link>
+        <inertial>
 
-    <!-- rear Left Wheel -->
-    <link name="near_left_wheel">
-        <visual>
-            <geometry>
-                <cylinder length="0.05" radius="0.05"/>
-            </geometry>
-            <material name="black">
-                <color rgba="0.0 0.0 0.0 1.0"/>
-            </material>
-        </visual>
+            <mass value="0.1"/>
+            <inertia ixx="0.00004167" ixy="0.000" ixz="0.00" iyy="0.00007083" iyz="0.0" izz="0.00010417"/>
+
+        </inertial>
     </link>
-    <joint name="near_left_wheel_joint" type="continuous">
+    <!-- Camera Joint -->
+    <joint name="camera_joint" type="fixed">
         <parent link="base_link"/>
-        <child link="near_left_wheel"/>
-        <origin xyz="0.18 0.2 -0.01" rpy="0 1.57 0"/>
-        <axis xyz="0 1 0"/>
+        <child link="camera_link"/>
+        <origin xyz="0 0 1.45" rpy="0 0 3.14"/>
     </joint>
+  <!-- Camera Work -->
+    <gazebo reference="camera_link">
+        <material>Gazebo/Red</material>
+        <sensor name="camera" type="camera">
+            <pose> 1.25 -0.4 2 0 0 0 </pose>
+            <visualize>true</visualize>
+            <update_rate>10</update_rate>
+            <camera>
+                <horizontal_fov>1.089</horizontal_fov>
+                <image>
+                    <format>R8G8B8</format>
+                    <width>640</width>
+                    <height>480</height>
+                </image>
+                <clip>
+                    <near>0.05</near>
+                    <far>8.0</far>
+                </clip>
+            </camera>
+            <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+                <frame_name>camera_link_optical</frame_name>
+            </plugin>
+        </sensor>
+    </gazebo>
 
-    <!-- Front left Wheel -->
-    <link name="front_left_wheel">
-        <visual>
-            <geometry>
-                <cylinder length="0.05" radius="0.05"/>
-            </geometry>
-            <material name="black">
-                <color rgba="0.0 0.0 0.0 1.0"/>
-            </material>
-        </visual>
-    </link>
-    <joint name="front_left_wheel_joint" type="continuous">
-        <parent link="base_link"/>
-        <child link="front_left_wheel"/>
-        <origin xyz="0.18 -0.1 -0.01" rpy="0 1.57 0"/>
-        <axis xyz="0 1 0"/>
-    </joint>
+<!-- Base Sensor -->
+ <link name="base_scan">
+    <visual>
+      <origin xyz="0 0 0.0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.1" radius="0.1"/>
+      </geometry>
+     <material name="green">
+        <color rgba="0.0 1 0.0 1.0"/>
+     </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.3" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.1" radius="0.1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.1" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.0003333" ixy="0.0" ixz="0.0"
+               iyy="0.0003333" iyz="0.0"
+               izz="0.0005" />
+    </inertial>
+  </link>
+  
+  <!-- Sensor Joint -->
+<joint name="scan_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="base_scan"/>
+    <origin xyz="0 -0.17 1.57" rpy="0 0 0"/>
+  </joint>
+   
 
-    <!-- Rear Left Wheel -->
-    <link name="rear_right_wheel">
-        <visual>
-            <geometry>
-                <cylinder length="0.05" radius="0.05"/>
-            </geometry>
-            <material name="black">
-                <color rgba="0.0 0.0 0.0 1.0"/>
-            </material>
-        </visual>
-    </link>
-    <joint name="rear_right_wheel_joint" type="continuous">
-        <parent link="base_link"/>
-        <child link="rear_right_wheel"/>
-        <origin xyz="-0.18 0.2 -0.01" rpy="0 1.57 0"/>
-        <axis xyz="0 1 0"/>
-    </joint>
-
-    <!-- Rear Right Wheel -->
-    <link name="front_right_wheel">
-        <visual>
-            <geometry>
-                <cylinder length="0.05" radius="0.05"/>
-            </geometry>
-            <material name="black">
-                <color rgba="0.0 0.0 0.0 1.0"/>
-            </material>
-        </visual>
-    </link>
-    <joint name="rear_front_wheel_joint" type="continuous">
-        <parent link="base_link"/>
-        <child link="front_right_wheel"/>
-        <origin xyz="-0.18 -0.1 -0.01" rpy="0 1.57 0"/>
-        <axis xyz="0 1 0"/>
-    </joint>
-</robot>
+ </robot>

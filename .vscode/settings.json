@@ -2,5 +2,6 @@
     "editor.quickSuggestions": {
         "comments": "on",
         "strings": "on"
-    }
+    },
+    "cmake.sourceDirectory": "/home/ngoos/catkin_urdf/src/robile_robot"
 }

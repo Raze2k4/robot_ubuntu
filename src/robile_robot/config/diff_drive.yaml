@@ -1,30 +1,32 @@
 diff_drive_controller:
   type: "diff_drive_controller/DiffDriveController"
-  left_wheel: ['joint_wheel_ph_trc', 'joint_wheel_ph_s']
-  right_wheel: ['joint_wheel_tr_trc', 'joint_wheel_tr_s']
+  right_wheel: ["joint_wheel_ph_trc" , "joint_wheel_ph_s"]
+  left_wheel: ["joint_wheel_tr_trc" , "joint_wheel_tr_s"]
   publish_rate: 50
-  wheel_separation: 0.4  # khoảng cách giữa hai bánh trái phải (m)
-  wheel_radius: 0.05     # bán kính bánh xe (m)
-  cmd_vel_timeout: 0.25
+
+  wheel_separation: 0.25    # khoảng cách giữa hai bánh xe
+  wheel_radius: 0.2      # bán kính bánh xe
+  cmd_vel_timeout: 0.25        # thời gian tối đa không nhận lệnh trước khi dừng
+
   enable_odom_tf: true
 
-  # odometry
-  base_frame_id: base_link
-  odom_frame_id: odom
-  publish_cmd: true
+  # Tuning odometry
+  odometry:
+    frame_id: odom
+    child_frame_id: base_link
+    publish_rate: 50
 
-  # velocity/acceleration limits
+  # Velocity and acceleration limits
   linear:
     x:
       has_velocity_limits: true
       max_velocity: 1.0
-      min_velocity: -1.0
+
       has_acceleration_limits: true
-      max_acceleration: 1.0
+      max_acceleration: 1.5
   angular:
     z:
       has_velocity_limits: true
-      max_velocity: 2.0
+      max_velocity: 6.0
       has_acceleration_limits: true
-      max_acceleration: 2.0
-
+      max_acceleration: 10

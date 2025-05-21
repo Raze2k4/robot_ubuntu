@@ -1,128 +1,152 @@
 <?xml version="1.0"?>
+<robot name="robile_robot">
+  <!-- Base Link -->
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="0.5 0.3 0.1"/>
+      </geometry>
+      <material name="blue">
+        <color rgba="0 0 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.5 0.3 0.1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="2.0"/>
+      <inertia ixx="0.02" ixy="0.0" ixz="0.0" iyy="0.02" iyz="0.0" izz="0.02"/>
+    </inertial>
+  </link>
 
-<robot name="mobile_robot">
-    <link name="base_link">
-        <visual>
-            <geometry>
-                <box size="0.4 0.2 0.1"/>
-            </geometry>
-        </visual>
-        <collision>
-            <geometry>
-                <box size="0.4 0.2 0.1"/>
-            </geometry>
-        </collision>
-        <inertial>
-            <mass value="5"/>
-            <inertia ixx="0.020833" ixy="0.0" ixz="0.0" iyy="0.07083" iyz="0.0" izz="0.08333"/>
-        </inertial>
-    </link>
+  <!-- Right Wheel (tr_trc) -->
+  <link name="wheel_tr_trc">
+    <visual>
+      <geometry>
+        <cylinder radius="0.4" length="0.1"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.4" length="0.1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.5"/>
+      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
+    </inertial>
+  </link>
 
-    <!-- Front Left Wheel -->
-    <link name="front_left_wheel">
-        <visual>
-            <geometry>
-                <cylinder length="0.05" radius="0.05"/>
-            </geometry>
-            <material name="black">
-                <color rgba="0.0 0.0 0.0 1.0"/>
-            </material>
-        </visual>
-        <collision>
-            <geometry>
-                <cylinder length="0.05" radius="0.05"/>
-            </geometry>
-        </collision>
-        <inertial>
-            <mass value="0.3"/>
-            <inertia ixx="0.00025" ixy="0.0" ixz="0.0" iyy="0.00025" iyz="0.0" izz="0.000375"/>
-        </inertial>
-    </link>
-    <joint name="front_left_wheel_joint" type="continuous">
-        <parent link="base_link"/>
-        <child link="front_left_wheel"/>
-        <origin xyz="0.15 0.1 -0.05" rpy="0 1.57 0"/>
-        <axis xyz="0 1 0"/>
-    </joint>
+  <!-- Left Wheel (ph_trc) -->
+  <link name="wheel_ph_trc">
+    <visual>
+      <geometry>
+        <cylinder radius="0.4" length="0.1"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.4" length="0.1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.5"/>
+      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
+    </inertial>
+  </link>
 
-    <!-- Front Right Wheel -->
-    <link name="front_right_wheel">
-        <visual>
-            <geometry>
-                <cylinder length="0.05" radius="0.05"/>
-            </geometry>
-            <material name="black">
-                <color rgba="0.0 0.0 0.0 1.0"/>
-            </material>
-        </visual>
-        <collision>
-             <geometry>
-                <cylinder length="0.05" radius="0.05"/>
-            </geometry>
-        </collision>
-        <inertial>
-            <mass value="0.3"/>
-            <inertia ixx="0.00025" ixy="0.0" ixz="0.0" iyy="0.00025" iyz="0.0" izz="0.000375"/>
-        </inertial>
-    </link>
-    <joint name="front_right_wheel_joint" type="continuous">
-        <parent link="base_link"/>
-        <child link="front_right_wheel"/>
-        <origin xyz="0.15 -0.1 -0.05" rpy="0 1.57 0"/>
-        <axis xyz="0 1 0"/>
-    </joint>
+  <!-- Cube on Top -->
+  <link name="cube">
+    <visual>
+      <geometry>
+        <box size="0.2 0.2 0.5"/>
+      </geometry>
+      <material name="gray">
+        <color rgba="0.5 0.5 0.5 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.2 0.2 0.5"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1.0"/>
+      <inertia ixx="0.008" ixy="0.0" ixz="0.0" iyy="0.008" iyz="0.0" izz="0.008"/>
+    </inertial>
+  </link>
 
-    <!-- Rear Left Wheel -->
-    <link name="rear_left_wheel">
-        <visual>
-            <geometry>
-                <cylinder length="0.05" radius="0.05"/>
-            </geometry>
-            <material name="black">
-                <color rgba="0.0 0.0 0.0 1.0"/>
-            </material>
-        </visual>
-        <collision>
-            <geometry>
-                <cylinder length="0.05" radius="0.05"/>
-            </geometry>
-        </collision>
-        <inertial>
-            <mass value="0.3"/>
-            <inertia ixx="0.00025" ixy="0.0" ixz="0.0" iyy="0.00025" iyz="0.0" izz="0.000375"/>
-        </inertial>
-    </link>
-    <joint name="rear_left_wheel_joint" type="continuous">
-        <parent link="base_link"/>
-        <child link="rear_left_wheel"/>
-        <origin xyz="-0.15 0.1 -0.05" rpy="0 1.57 0"/>
-        <axis xyz="0 1 0"/>
-    </joint>
+  <!-- Joint for Right Wheel -->
+  <joint name="joint_wheel_tr_trc" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_tr_trc"/>
+    <origin xyz="0 -0.2465 0" rpy="1.5708 0 0"/>
+    <axis xyz="0 1 0"/>
+  </joint>
 
-    <!-- Rear Right Wheel -->
-    <link name="rear_right_wheel">
-        <visual>
-            <geometry>
-                <cylinder length="0.05" radius="0.05"/>
-            </geometry>
-            <material name="black">
-                <color rgba="0.0 0.0 0.0 1.0"/>
-            </material>
-        </visual>
-        <collision>
-            <geometry>
-                <cylinder length="0.05" radius="0.05"/>
-            </geometry>
-        </collision>
-        <inertial>
-            <mass value="0.3"/>
-            <inertia ixx="0.00025" ixy="0.0" ixz="0.0" iyy="0.00025" iyz="0.0" izz="0.000375"/>
-        </inertial>
-    </link>
-    <joint name="rear_right_wheel_joint" type="continuous">
-        <parent link="base_link"/>
-        <child link="rear_right_wheel"/>
-        <origin xyz="-0.15 -0.1 -0.05" rpy="0 1.57 0"/>
-        <axis xyz="0 1 0"/>
-    </joint>
+  <!-- Joint for Left Wheel -->
+  <joint name="joint_wheel_ph_trc" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_ph_trc"/>
+    <origin xyz="0 0.2465 0" rpy="1.5708 0 0"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <!-- Joint for Cube -->
+  <joint name="joint_cube" type="fixed">
+    <parent link="base_link"/>
+    <child link="cube"/>
+    <origin xyz="0 0 0.3" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Gazebo Plugins -->
+  <gazebo reference="base_link">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+
+  <gazebo reference="wheel_tr_trc">
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <gazebo reference="wheel_ph_trc">
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <gazebo reference="cube">
+    <material>Gazebo/Gray</material>
+  </gazebo>
+
+  <!-- Differential Drive Plugin -->
+  <gazebo>
+    <plugin name="diff_drive_controller" filename="libgazebo_ros_diff_drive.so">
+      <alwaysOn>true</alwaysOn>
+      <updateRate>100</updateRate>
+      <leftJoint>joint_wheel_ph_trc</leftJoint>
+      <rightJoint>joint_wheel_tr_trc</rightJoint>
+      <wheelSeparation>0.1465</wheelSeparation>
+      <wheelDiameter>0.8</wheelDiameter> <!-- 2 * wheel_radius -->
+      <topicName>/cmd_vel</topicName>
+      <odometryTopic>/odom</odometryTopic>
+      <odometryFrame>odom</odometryFrame>
+      <robotBaseFrame>base_link</robotBaseFrame>
+      <publishWheelTF>true</publishWheelTF>
+      <publishWheelJointState>true</publishWheelJointState>
+      <publishOdomTF>true</publishOdomTF>
+      <publishOdom>true</publishOdom>
+      <torque>10.0</torque>
+      <maxWheelTorque>10.0</maxWheelTorque>
+      <maxWheelAcceleration>100</maxWheelAcceleration>
+      <robotNamespace>na</robotNamespace>
+    </plugin>
+  </gazebo>
 </robot>

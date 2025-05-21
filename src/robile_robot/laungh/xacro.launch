@@ -1,16 +1,9 @@
 <launch>
   <!-- Load robot model -->
-  <param name="robot_description" command="$(find xacro)/xacro '$(find robile_robot)/urdf/robile_robot.xacro'" />
-
+  <param name="robot_description" command="$(find xacro)/xacro '$(find robile_robot)/xacro/robile_robot_ur5.xacro'" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/> 
   <!-- Gazebo world -->
-  <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find robile_robot)/world/model.world"/>
-    <arg name="paused" value="false"/>
-    <arg name="use_sim_time" value="true"/>
-    <arg name="gui" value="true"/>
-    <arg name="headless" value="false"/>
-    <arg name="debug" value="false"/>
-  </include>
+  <include file="$(find gazebo_ros)/launch/empty_world.launch" />
 
   <!-- Spawn robot in Gazebo -->
   <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model"
@@ -22,7 +15,7 @@
 
   <!-- MoveIt planning backend -->
   <include file="$(find ur5_moveit_config)/launch/move_group.launch" />
-yo
+
   <!-- RViz with MoveIt -->
   <include file="$(find ur5_moveit_config)/launch/moveit_rviz.launch" />
 </launch>

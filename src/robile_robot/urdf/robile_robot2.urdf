@@ -5,7 +5,7 @@
     <link name="base_link">
         <visual>
             <geometry>
-              <box size="0.5 0.3 0.2"/>
+                <mesh filename="package://robile_robot/models/than.stl"/>
             </geometry>
             <material name="pink">
                 <color rgba="1 0.4 0.7 1"/>
@@ -14,40 +14,18 @@
         </visual>
         <collision>
             <geometry>
-                <box size="0.5 0.3 0.2"/>
+                <mesh filename="package://robile_robot/models/than.stl"/>
             </geometry>
         </collision>
         <inertial>
              <mass value="5"/>
              <inertia ixx="0.05417" ixy="0" ixz="0" iyy="0.12083" iyz="0.0" izz="0.14167"/>
         </inertial>
-        <gazebo>
-    <plugin name="diff_drive_controller" filename="libgazebo_ros_diff_drive.so">
-        <ros>
-            <namespace>/</namespace>
-            <remapping>cmd_vel:=cmd_vel</remapping>
-            <remapping>odom:=odom</remapping>
-        </ros>
-        <updateRate>100.0</updateRate>
-        <leftJoint>joint_wheel_tr_trc</leftJoint>
-        <leftJoint>joint_wheel_tr_s</leftJoint>
-        <rightJoint>joint_wheel_ph_trc</rightJoint>
-        <rightJoint>joint_wheel_ph_s</rightJoint>
-        <wheelSeparation>0.32</wheelSeparation> <!-- khoảng cách 2 bên bánh xe -->
-        <wheelDiameter>0.10</wheelDiameter> <!-- 2 lần bán kính -->
-        <torque>5</torque>
-        <commandTopic>cmd_vel</commandTopic>
-        <odometryTopic>odom</odometryTopic>
-        <odometryFrame>odom</odometryFrame>
-        <robotBaseFrame>base_link</robotBaseFrame>
-        <publishTf>true</publishTf>
-    </plugin>
-</gazebo>
-
+        
     </link>
 
     <!-- Banh xe -->
-    <link name="wheel_tr_trc">
+    <link name="wheel_ph_trc">
         <visual>
             <geometry>
                 <cylinder radius="0.05" length="0.02"/>
@@ -69,7 +47,7 @@
 
     </link>
     
-    <link name="wheel_ph_trc">
+    <link name="wheel_ph_s">
         <visual>
             <geometry>
                 <cylinder radius="0.05" length="0.02"/>
@@ -88,6 +66,26 @@
             <inertia ixx="0.0013167" ixy="0.0" ixz="0.0" iyy="0.0013167" iyz="0.0" izz="0.0025"/>
         </inertial>
 
+    </link>
+
+    <link name="wheel_tr_trc">
+        <visual>
+            <geometry>
+                <cylinder radius="0.05" length="0.02"/>
+            </geometry>
+            <material name="black">
+                <color rgba="0 0 0 1"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder radius="0.05" length="0.02"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="10"/>
+            <inertia ixx="0.0013167" ixy="0.0" ixz="0.0" iyy="0.0013167" iyz="0.0" izz="0.0025"/>
+        </inertial>
     </link>
 
     <link name="wheel_tr_s">
@@ -110,77 +108,70 @@
         </inertial>
     </link>
 
-    <link name="wheel_ph_s">
-        <visual>
-            <geometry>
-                <cylinder radius="0.05" length="0.02"/>
-            </geometry>
-            <material name="black">
-                <color rgba="0 0 0 1"/>
-            </material>
-        </visual>
-        <collision>
-            <geometry>
-                <cylinder radius="0.05" length="0.02"/>
-            </geometry>
-        </collision>
-        <inertial>
-            <mass value="10"/>
-            <inertia ixx="0.0013167" ixy="0.0" ixz="0.0" iyy="0.0013167" iyz="0.0" izz="0.0025"/>
-        </inertial>
-    </link>
+    <gazebo>
+    <plugin name="diff_drive" filename="libgazebo_ros_diff_drive.so">
+        <!-- Joint Names -->
+        <leftJoint>joint_wheel_tr_trc</leftJoint>
+        <rightJoint>joint_wheel_ph_trc</rightJoint>
+        <!-- <leftJoint>joint_wheel_tr_s</leftJoint> -->
+        <!-- <rightJoint>joint_wheel_ph_s</rightJoint> -->
+
+        <!-- Wheel Properties -->
+        <wheelSeparation>0.32</wheelSeparation>
+        <wheelDiameter>0.1</wheelDiameter>
+
+        <!-- Control Topic -->
+
+        <commandTopic>/cmd_vel</commandTopic>
+
+        <!-- Odometry and Frames -->
+        <odometryTopic>/odom</odometryTopic>
+        <odometryFrame>odom</odometryFrame>
+        <odometrySource>world</odometrySource>
+        <robotBaseFrame>base_link</robotBaseFrame>
+
+        <!-- Publish Options -->
+        <publishOdomTF>true</publishOdomTF>
+        <publishWheelTF>true</publishWheelTF>
+        <publishTf>true</publishTf>
+        <publishWheelJointState>true</publishWheelJointState>
+        <!-- Wheel Dynamics -->
+        <wheelAcceleration>10.0</wheelAcceleration>
+        <wheelTorque>10.0</wheelTorque>
+        <updateRate>100</updateRate>x
+
+        <rosDebugLevel>na</rosDebugLevel>
+    </plugin>
+</gazebo>
 
     <!-- Khop noi banh xe -->
-    <joint name="joint_wheel_tr_trc" type="continuous">
-        <parent link="base_link"/>
-        <child link="wheel_tr_trc"/>
-        <origin xyz="-0.2 0.16 -0.1" rpy="1.57 0.0 0.0"/>
-        <axis xyz="0 0 1"/>
-    </joint>
-
     <joint name="joint_wheel_ph_trc" type="continuous">
         <parent link="base_link"/>
         <child link="wheel_ph_trc"/>
-        <origin xyz="0.2 0.16 -0.1" rpy="1.57 0.0 0.0"/>
-        <axis xyz="0 0 1"/>
-    </joint>
-
-    <joint name="joint_wheel_tr_s" type="continuous">
-        <parent link="base_link"/>
-        <child link="wheel_tr_s"/>
-        <origin xyz="-0.2 -0.16 -0.1" rpy="1.57 0.0 0.0"/>
+        <origin xyz="-0.2 0.16 -0.1" rpy="1.57 0.0 0.0"/>
         <axis xyz="0 0 1"/>
     </joint>
 
     <joint name="joint_wheel_ph_s" type="continuous">
         <parent link="base_link"/>
         <child link="wheel_ph_s"/>
-        <origin xyz="0.2 -0.16 -0.1" rpy="1.57 0.0 0.0"/>
+        <origin xyz="0.2 0.16 -0.1" rpy="1.57 0.0 0.0"/>
         <axis xyz="0 0 1"/>
     </joint>
 
-<gazebo>
-  <plugin name="diff_drive_controller" filename="libgazebo_ros_diff_drive.so">
-    <ros>
-      <namespace>/</namespace>
-      <remapping>cmd_vel:=/cmd_vel</remapping>
-    </ros>
-    <robotNamespace>/</robotNamespace>
-    <commandTopic>cmd_vel</commandTopic>
-    <odometryTopic>odom</odometryTopic>
-    <odometryFrame>odom</odometryFrame>
-    <robotBaseFrame>base_link</robotBaseFrame>
-    <wheelSeparation>0.32</wheelSeparation>
-    <wheelDiameter>0.1</wheelDiameter>
-    <leftJoint>joint_wheel_tr_s</leftJoint>
-    <rightJoint>joint_wheel_ph_s</rightJoint>
-    <leftJoint>joint_wheel_tr_trc</leftJoint> <!-- nếu robot có 4 bánh drive thì thêm cả -->
-    <rightJoint>joint_wheel_ph_trc</rightJoint>
-    <torque>5</torque>
-    <commandTimeout>1.0</commandTimeout>
-    <broadcastTF>true</broadcastTF>
-  </plugin>
-</gazebo>
+    <joint name="joint_wheel_tr_trc" type="continuous">
+        <parent link="base_link"/>
+        <child link="wheel_tr_trc"/>
+        <origin xyz="-0.2 -0.16 -0.1" rpy="1.57 0.0 0.0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+
+    <joint name="joint_wheel_tr_s" type="continuous">
+        <parent link="base_link"/>
+        <child link="wheel_tr_s"/>
+        <origin xyz="0.2 -0.16 -0.1" rpy="1.57 0.0 0.0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
 
 <!-- <camera> -->
 
@@ -242,10 +233,31 @@
      </material>
     </visual>
     <collision>
-      <origin xyz="0 0 0.15" rpy="0 0 0"/>
+      <origin xyz="0 0 0.3" rpy="0 0 0"/>
       <geometry>
         <cylinder length="0.05" radius="0.05"/>
       </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.114" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0"
+               iyy="0.001" iyz="0.0"
+               izz="0.001" />
+    </inertial>
+  </link>
+  <link name="tower_scan">
+  <visual>
+     <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+  <geometry>
+    <cylinder radius="0.02" length="0.3"/>
+  </geometry>
+  </visual>
+    <collision>
+        <origin xyz="0.0 0.0 0.3" rpy="0.0 0.0 0.0"/>
+        <geometry>
+            <cylinder radius="0.02" length="0.3"/>
+        </geometry>
     </collision>
     <inertial>
       <mass value="0.114" />
@@ -260,7 +272,14 @@
 <joint name="scan_joint" type="fixed">
     <parent link="base_link"/>
     <child link="base_scan"/>
-    <origin xyz="0 0 0.3" rpy="0 0 0"/>
+    <origin xyz="0.35 0 0.5" rpy="0 0 0"/>
+  </joint>
+  <joint name="tower_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="tower_scan"/>
+    <origin xyz="0.35 0.0 0.33" rpy="0.0 0.0 0.0"/>
+    
+    
   </joint>
 
   <!-- Sensor Work -->
@@ -275,8 +294,8 @@
           <horizontal>
             <samples>360</samples>
             <resolution>1</resolution>
-            <min_angle>-3.14159</min_angle>
-            <max_angle>3.14159</max_angle>
+            <min_angle>0</min_angle>
+            <max_angle>6.28319</max_angle>
           </horizontal>
         </scan>
         <range>
