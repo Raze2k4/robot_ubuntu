@@ -4,7 +4,7 @@
   <link name="base_link">
     <visual>
       <geometry>
-        <mesh filename="package://robile_robot/models/body3.stl"/>
+        <mesh filename="package://robile_robot/models/body5.stl"/>
       </geometry>
       <material name="pink">
         <color rgba="1 0.4 0.7 1"/>
@@ -13,7 +13,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://robile_robot/models/body3.stl"/>
+        <mesh filename="package://robile_robot/models/body5.stl"/>
       </geometry>
     </collision>
     <inertial>
