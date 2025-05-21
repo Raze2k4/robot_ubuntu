@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro" name="mobile_robot">
 <xacro:include filename="$(find ur_description)/urdf/inc/ur5_macro.xacro"/>
+<xacro:include filename="$(find ur_description)/urdf/inc/ur3_macro.xacro"/>
     <!-- Thân -->
   <link name="base_link">
     <visual>
@@ -23,15 +24,21 @@
     </inertial>
   </link>
 
+<joint name="base_to_ur3_base" type="fixed">
+    <parent link="base_link"/>
+    <child link="ur3_base_link"/>  <!-- Kiểm tra lại tên của link này trong UR5 -->
+    <origin xyz="0.1 -0.8 0.7" rpy="3.14 1.57 1.57"/>
+  </joint>
+
 <joint name="base_to_ur5_base" type="fixed">
     <parent link="base_link"/>
     <child link="ur5_base_link"/>  <!-- Kiểm tra lại tên của link này trong UR5 -->
-    <origin xyz="0.1 0.6 0.5" rpy="1.57 0 0"/>
+    <origin xyz="0.1 0.5 0.7" rpy="0 1.57 1.57"/>
   </joint>
 
   <!-- Include UR5 -->
   <xacro:ur5_robot prefix="ur5_"/>
-  
+  <xacro:ur5_robot prefix="ur3_"/>
 <!-- Bánh xe -->
   <link name="wheel_ph_trc">
     <visual>
