@@ -4,7 +4,7 @@
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/> 
   <!-- Gazebo world -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find robile_robot)/world/world.world"/>
+    <arg name="world_name" value="$(find robile_robot)/world/model.world"/>
     <arg name="paused" value="false"/>
     <arg name="use_sim_time" value="true"/>
     <arg name="gui" value="true"/>
